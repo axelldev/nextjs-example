@@ -3,7 +3,6 @@ import prisma from '@/lib/utils/db'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import { waitFor } from '../utils/utils'
 
 export const getAllTasks = async () => {
   return await prisma.task.findMany({
@@ -27,8 +26,6 @@ export const createTask = async (
     content: formData.get('content'),
   })
 
-  await waitFor(200)
-
   try {
     await prisma.task.create({
       data: newTask,
@@ -46,7 +43,6 @@ export const deleteTask = async (
 ) => {
   try {
     const id = formData.get('id') as string
-    await waitFor(500)
     await prisma.task.delete({
       where: {
         id,
@@ -83,7 +79,6 @@ export const updateTask = async (
       completed,
     })
 
-    await waitFor(200)
     await prisma.task.update({
       where: {
         id: data.id,
