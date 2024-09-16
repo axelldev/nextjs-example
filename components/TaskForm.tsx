@@ -1,7 +1,8 @@
 'use client'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { createTask } from '@/lib/actions/task'
 import { useFormStatus, useFormState } from 'react-dom'
+import toast from 'react-hot-toast'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -25,6 +26,16 @@ export default function TaskForm() {
   const formRef = useRef<HTMLFormElement>(null)
   const [state, formAction] = useFormState(createTask, initialState)
 
+  useEffect(() => {
+    if (state.message === 'error') {
+      toast.error('Failed to create task')
+      return
+    }
+    if (state.message === 'success') {
+      toast.success('Task created successfuly')
+    }
+  }, [state.message])
+
   return (
     <div>
       <form
@@ -46,7 +57,6 @@ export default function TaskForm() {
           <SubmitButton />
         </div>
       </form>
-      <p className="mt-4">{state.message}</p>
     </div>
   )
 }

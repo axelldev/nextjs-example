@@ -34,9 +34,9 @@ export const createTask = async (
       data: newTask,
     })
     revalidatePath('/tasks')
-    return { message: 'Task created!' }
+    return { message: 'success' }
   } catch (error) {
-    return { message: 'Failed to create task' }
+    return { message: 'error' }
   }
 }
 
