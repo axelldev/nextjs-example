@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import DeleteTaskForm from './DeleteTaskForm'
-import { getAllTasksAction } from '@/lib/actions/task'
+import { getAllTasks } from '@/lib/actions/task'
 
 export default async function TasksList() {
-  const tasks = await getAllTasksAction()
+  const tasks = await getAllTasks()
 
   if (tasks.length === 0) {
     return <h2 className="mt-8 font-medium text-lg">No tasks to show</h2>
